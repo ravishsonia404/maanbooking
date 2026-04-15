@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Dashboard</title>
+</head>
+
+<body style="font-family: Arial; background:#f4f4f4;">
+
+    <div style="width:500px; margin:50px auto; background:white; padding:20px; border-radius:10px;">
+
+        <h2>📊 Ride Dashboard</h2>
+
+        <div style="padding:10px; margin:10px; background:#e3f2fd;">
+            <h3>Total Rides</h3>
+            <p>{{ total_rides }}</p>
+        </div>
+
+        <div style="padding:10px; margin:10px; background:#e8f5e9;">
+            <h3>Total Earnings</h3>
+            <p>₹{{ total_earnings }}</p>
+        </div>
+
+        <div style="padding:10px; margin:10px; background:#fff3e0;">
+            <h3>Today Rides</h3>
+            <p>{{ today_rides }}</p>
+        </div>
+
+        <a href="/" style="display:block; text-align:center; margin-top:20px;">
+            ⬅ Back to Home
+        </a>
+
+    </div>
+
+</body>
+</html>

@@ -1,0 +1,12 @@
+<h2>🚗 Driver Dashboard</h2>
+
+{% for ride in rides %}
+    <div style="border:1px solid black; padding:10px; margin:10px;">
+        <p><b>Name:</b> {{ ride.name }}</p>
+        <p><b>Pickup:</b> {{ ride.pickup }}</p>
+        <p><b>Drop:</b> {{ ride.drop }}</p>
+
+        <a href="/accept/{{ ride.id }}/">✅ Accept</a>
+        <a href="/reject/{{ ride.id }}/">❌ Reject</a>
+    </div>
+{% endfor %}
