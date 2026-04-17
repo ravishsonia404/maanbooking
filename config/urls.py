@@ -1,5 +1,6 @@
 from django.contrib import admin
 from django.urls import path
+from django.contrib.auth import views as auth_views
 from bookings import views
 
 urlpatterns = [
@@ -7,11 +8,7 @@ urlpatterns = [
 
     path('', views.home, name='home'),
 
-    # 🚗 driver system
+    # 🔐 LOGIN SYSTEM
     path('driver/', views.driver_dashboard, name='driver_dashboard'),
-    path('accept/<int:ride_id>/', views.accept_ride),
-    path('reject/<int:ride_id>/', views.reject_ride),
-
-    # 🛠 admin panel
-    path('dashboard/', views.admin_dashboard, name='admin_dashboard'),
+    path('update-status/<int:ride_id>/<str:status>/', views.update_status, name='update_status'),
 ]
