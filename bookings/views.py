@@ -1,5 +1,6 @@
 from django.shortcuts import render, redirect
 from .forms import RideForm
+from django.shortcuts import render, get_object_or_404
 from .models import Ride
 
 
@@ -16,18 +17,22 @@ def home(request):
 
             ride.save()
 
-            return render(request, 'success.html', {
-                'ride': ride
-            })
+            return render(request, 'success.html', {'ride': ride})
 
     return render(request, 'home.html', {'form': form})
 
 
 # 🚗 DRIVER DASHBOARD
 def driver_dashboard(request):
-    rides = Ride.objects.filter(status='pending')
-    return render(request, 'driver.html', {'rides': rides})
+    rides = Ride.objects.all().order_by('-id')  # later filter by driver
 
+    return render(request, 'driver_dashboard.html', {'rides': rides})
+def update_status(request, ride_id, status):
+    ride = get_object_or_404(Ride, id=ride_id)
+    ride.status = status
+    ride.save()
+
+    return redirect('driver_dashboard')
 
 # 🚗 ACCEPT RIDE
 def accept_ride(request, ride_id):
