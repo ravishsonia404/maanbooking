@@ -1,8 +1,49 @@
-<h2>🎉 Ride Booked!</h2>
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Ride Success</title>
 
-<p>Name: {{ ride.name }}</p>
-<p>Pickup: {{ ride.pickup }}</p>
-<p>Drop: {{ ride.drop }}</p>
-<p>Status: {{ ride.status }}</p>
+    <!-- Bootstrap CDN -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+</head>
 
-<a href="/">Book Again</a>
+<body class="bg-light">
+
+<div class="container mt-5">
+
+    <div class="card shadow p-4 text-center">
+
+        <h2 class="text-success">🎉 Ride Booked Successfully!</h2>
+        <hr>
+
+        <p><strong>Name:</strong> {{ ride.name }}</p>
+        <p><strong>Pickup:</strong> {{ ride.pickup }}</p>
+        <p><strong>Drop:</strong> {{ ride.drop }}</p>
+        <p><strong>Date:</strong> {{ ride.date }}</p>
+        <p><strong>Time:</strong> {{ ride.time }}</p>
+
+        <p>
+            <strong>Status:</strong>
+            <span class="badge bg-warning text-dark">
+                {{ ride.status }}
+            </span>
+        </p>
+
+        <p>
+            <strong>Driver:</strong>
+            {{ ride.driver_name|default:"Not assigned yet" }}
+        </p>
+
+        <p>
+            <strong>Price:</strong>
+            ₹{{ ride.price|default:"Will be decided by driver" }}
+        </p>
+
+        <a href="/" class="btn btn-primary mt-3">🚗 Book Another Ride</a>
+
+    </div>
+
+</div>
+
+</body>
+</html>
