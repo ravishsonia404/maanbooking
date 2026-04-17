@@ -41,6 +41,9 @@ def home(request):
             'drop': drop,
             'date': date,
             'time': time,
+            'status': 'pending',
+            'driver': 'Not assigned yet',
+            'price': 'Will be decided by driver'
         })
 
     return render(request, 'home.html')
