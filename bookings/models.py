@@ -1,6 +1,6 @@
 from django.db import models
 from django.contrib.auth.models import User
-
+from django.utils.timezone import now
 
 class Ride(models.Model):
     # 👤 Customer Details
@@ -39,7 +39,7 @@ class Ride(models.Model):
     )
 
     # 📅 Created time (for sorting)
-    created_at = models.DateTimeField(auto_now_add=True)
+    created_at = models.DateTimeField(default=now)
 
     def __str__(self):
         return f"{self.name} - {self.pickup} to {self.drop}"
