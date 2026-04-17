@@ -5,22 +5,44 @@ from .models import Ride
 
 
 # 👤 USER BOOK RIDE
+from django.shortcuts import render, redirect
+from .models import Ride
+
 def home(request):
-    form = RideForm(request.POST or None)
+    if request.method == "POST":
+        name = request.POST.get('name')
+        email = request.POST.get('email')
+        pickup = request.POST.get('pickup')
+        drop = request.POST.get('drop')
+        date = request.POST.get('date')
+        time = request.POST.get('time')
 
-    if request.method == 'POST':
-        if form.is_valid():
-            ride = form.save(commit=False)
+        # ✅ IMPORTANT: avoid crash if empty
+        if not all([name, email, pickup, drop, date, time]):
+            return render(request, 'home.html', {'error': 'All fields are required'})
 
-            ride.status = 'pending'
-            ride.price = None  # driver sets later
+        try:
+            Ride.objects.create(
+                name=name,
+                email=email,
+                pickup=pickup,
+                drop=drop,
+                date=date,
+                time=time,
+                status='pending'
+            )
+        except Exception as e:
+            return render(request, 'home.html', {'error': str(e)})
 
-            ride.save()
+        return render(request, 'success.html', {
+            'name': name,
+            'pickup': pickup,
+            'drop': drop,
+            'date': date,
+            'time': time,
+        })
 
-            return render(request, 'success.html', {'ride': ride})
-
-    return render(request, 'home.html', {'form': form})
-
+    return render(request, 'home.html')
 
 # 🚗 DRIVER DASHBOARD
 def driver_dashboard(request):
