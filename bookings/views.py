@@ -5,8 +5,7 @@ from .models import Ride
 
 
 # 👤 USER BOOK RIDE
-from django.shortcuts import render, redirect
-from .models import Ride
+from datetime import datetime
 
 def home(request):
     if request.method == "POST":
@@ -17,9 +16,11 @@ def home(request):
         date = request.POST.get('date')
         time = request.POST.get('time')
 
-        # ✅ IMPORTANT: avoid crash if empty
-        if not all([name, email, pickup, drop, date, time]):
-            return render(request, 'home.html', {'error': 'All fields are required'})
+        # Convert date safely
+        try:
+            date_obj = datetime.strptime(date, "%Y-%m-%d").date()
+        except:
+            return render(request, 'home.html', {'error': 'Invalid date format'})
 
         try:
             Ride.objects.create(
@@ -27,7 +28,7 @@ def home(request):
                 email=email,
                 pickup=pickup,
                 drop=drop,
-                date=date,
+                date=date_obj,
                 time=time,
                 status='pending'
             )
