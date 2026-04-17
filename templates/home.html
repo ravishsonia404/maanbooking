@@ -1,31 +1,44 @@
-<!DOCTYPE html>
-<html>
-<head>
-    <title>Book Ride</title>
-    <meta charset="UTF-8">
-</head>
+<div class="card shadow-lg p-4 bg-white text-dark">
 
-<body style="font-family: Arial; background:#f2f2f2;">
+    <form method="POST">
+        {% csrf_token %}
 
-    <div style="width: 400px; margin: 50px auto; background: white; padding: 20px; border-radius: 10px;">
+        <div class="mb-3">
+            <label class="form-label fw-bold">👤 Name</label>
+            {{ form.name }}
+        </div>
 
-        <h2 style="text-align:center;">🚗 Book Your Ride</h2>
+        <div class="mb-3">
+            <label class="form-label fw-bold">📧 Email</label>
+            {{ form.email }}
+        </div>
 
-        <!-- FORM START -->
-        <form method="POST">
-            {% csrf_token %}
+        <div class="mb-3">
+            <label class="form-label fw-bold">📍 Pickup Location</label>
+            {{ form.pickup }}
+        </div>
 
-            {{ form.as_p }}
+        <div class="mb-3">
+            <label class="form-label fw-bold">🏁 Drop Location</label>
+            {{ form.drop }}
+        </div>
 
-            <button type="submit"
-                    style="width:100%; padding:10px; background:green; color:white; border:none; border-radius:5px;">
-                Book Ride
-            </button>
+        <div class="row">
+            <div class="col-md-6 mb-3">
+                <label class="form-label fw-bold">📅 Date</label>
+                {{ form.date }}
+            </div>
 
-        </form>
-        <!-- FORM END -->
+            <div class="col-md-6 mb-3">
+                <label class="form-label fw-bold">⏰ Time</label>
+                {{ form.time }}
+            </div>
+        </div>
 
-    </div>
+        <button type="submit" class="btn btn-dark w-100 py-2">
+            🚗 Book Ride
+        </button>
 
-</body>
-</html>
+    </form>
+
+</div>
