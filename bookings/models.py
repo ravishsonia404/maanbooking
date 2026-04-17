@@ -2,27 +2,22 @@ from django.db import models
 from django.contrib.auth.models import User
 from django.utils.timezone import now
 
+from django.contrib.auth.models import User
+
 class Ride(models.Model):
-    # 👤 Customer Details
     name = models.CharField(max_length=100)
     email = models.EmailField()
-
-    # 📍 Ride Details
     pickup = models.CharField(max_length=100)
     drop = models.CharField(max_length=100)
     date = models.DateField()
     time = models.TimeField()
+    status = models.CharField(max_length=20, default='pending')
 
-    # 💰 Price (decided by driver)
-    price = models.IntegerField(null=True, blank=True)
+    # ✅ NEW FIELD
+    driver = models.ForeignKey(User, on_delete=models.SET_NULL, null=True, blank=True)
 
-    # 👨‍✈️ Driver (linked with login system)
-    driver = models.ForeignKey(
-        User,
-        on_delete=models.SET_NULL,
-        null=True,
-        blank=True
-    )
+    def __str__(self):
+        return self.name
 
     # 🚦 Status
     STATUS_CHOICES = [
